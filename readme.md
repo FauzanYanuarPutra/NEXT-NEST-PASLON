@@ -389,6 +389,11 @@ Operasi ini digunakan untuk menghapus data paslon berdasarkan ID tertentu.
 **Deskripsi:**
 Operasi ini memungkinkan pengguna untuk memberikan suara pada pasangan calon tertentu.
 
+**Parameter URL:**
+- `:id_user`  (integer): ID Pengguna yang sedang login / yang sedang memilih.
+- `:id_paslon`  (integer): ID pasangan calon yang ingin dipilih.
+
+
 **Response:**
 
 ```json

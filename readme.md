@@ -16,7 +16,7 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
     <img src="https://cdn.freebiesupply.com/logos/large/2x/postgresql-logo-png-transparent.png" width="80">
 </div>
 
-### Tek❌ Nologi yang Digunakan
+### Teknologi yang Digunakan
 
 - [Nest.js](https://nestjs.com/) (Framework backend)
 - [TypeORM](https://typeorm.io/) (ORM untuk database)

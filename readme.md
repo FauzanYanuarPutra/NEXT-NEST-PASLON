@@ -185,7 +185,7 @@ Operasi ini digunakan untuk mendapatkan daftar semua paslon yang tersedia dalam 
 **Request:**
 
 - Metode: GET
-- Endpoint: `http://localhost:5000/paslons/1`
+- Endpoint: `http://localhost:5000/paslons/:id`
 - Required Token: ✅ Yes
 - Admin Only: ❌ No 
 
@@ -280,13 +280,16 @@ Operasi ini digunakan untuk mendapatkan detail paslon berdasarkan ID tertentu.
 **Request:**
 
 - Metode: PATCH
-- Endpoint: `http://localhost:5000/paslons/2`
+- Endpoint: `http://localhost:5000/paslons/:id`
 - Required Token: ✅ Yes
 - Admin Only: ✅ Yes 
 
 
 **Deskripsi:**
 Operasi ini digunakan untuk menghapus data paslon berdasarkan ID tertentu.
+
+**Parameter URL:**
+- `:id`  (integer): ID paslon yang ingin diubah datanya.
 
 **Request Body:**
 
@@ -357,7 +360,7 @@ Operasi ini digunakan untuk menghapus data paslon berdasarkan ID tertentu.
 **Request:**
 
 - Metode: DELETE
-- Endpoint: `http://localhost:5000/paslons/2`
+- Endpoint: `http://localhost:5000/paslons/:id`
 - Required Token: ✅ Yes
 - Admin Only: ✅ Yes 
 

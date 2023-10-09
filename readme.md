@@ -6,13 +6,14 @@
 
 Tulis deskripsi lebih detail tentang proyek Anda di sini.
  -->
- <div style="display: flex; gap: 4rem; justify-content: flex-end;">
-    <img src="https://tkssharma.com/static/02dfdac16100b40337b156a95ab4b1fe/56e34/nextjs.png" width="100">
-    <img src="https://www.sotatek.com/wp-content/uploads/2021/04/NestJS-300x300.png" width="100">
-    <img src="https://seeklogo.com/images/T/typeorm-logo-F243B34DEE-seeklogo.com.png" width="100">
-    <img src="https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_tailwind_icon_130128.png" width="100">
-    <img src="https://cloudinary-res.cloudinary.com/image/upload/c_scale,fl_attachment,w_500/v1/logo/for_white_bg/cloudinary_icon_for_white_bg.png" width="100">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1200px-Typescript_logo_2020.svg.png" width="100">
+ <div style="display: flex; justify-content: center; align-items: center;">
+    <img src="https://tkssharma.com/static/02dfdac16100b40337b156a95ab4b1fe/56e34/nextjs.png" width="80">
+    <img src="https://www.sotatek.com/wp-content/uploads/2021/04/NestJS-300x300.png" width="80">
+    <img src="https://seeklogo.com/images/T/typeorm-logo-F243B34DEE-seeklogo.com.png" width="80">
+    <img src="https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_tailwind_icon_130128.png" width="80">
+    <img src="https://cloudinary-res.cloudinary.com/image/upload/c_scale,fl_attachment,w_500/v1/logo/for_white_bg/cloudinary_icon_for_white_bg.png" width="80">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1200px-Typescript_logo_2020.svg.png" width="80">
+    <img src="https://cdn.freebiesupply.com/logos/large/2x/postgresql-logo-png-transparent.png" width="80">
 </div>
 
 ### Teknologi yang Digunakan

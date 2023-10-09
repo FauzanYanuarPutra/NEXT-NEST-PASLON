@@ -26,6 +26,16 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 - Metode: POST
 - Endpoint: `http://localhost:5000/auth/login`
 
+**Contoh Request:**
+```json
+
+{
+    "email": "cipta@gmail.com",
+    "password": "password",
+}
+
+```
+
 **Response:**
 
 ```json
@@ -43,6 +53,18 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 - Metode: POST
 - Endpoint: `http://localhost:5000/auth/register`
+
+**Contoh Request:**
+```json
+
+{
+    "username": "username",
+    "email": "email@gmail.com", // unique 
+    "password": "password",
+    "isAdmin": true // default nya galse (optional)
+}
+
+```
 
 **Response:**
 
@@ -64,6 +86,7 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 - Metode: GET
 - Endpoint: `http://localhost:5000/paslons`
+- Required Token: Yes
 
 **Response:**
 
@@ -110,6 +133,8 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 - Metode: GET
 - Endpoint: `http://localhost:5000/paslons/1`
+- Required Token: Yes
+
 
 **Response:**
 
@@ -134,6 +159,8 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 - Metode: POST
 - Endpoint: `http://localhost:5000/paslons`
+- Required Token: Yes
+
 
 **Contoh Request:**
 
@@ -174,6 +201,8 @@ image dari file, yang nantinya saat tersimpan di database adalah url dari image 
 
 - Metode: PATCH
 - Endpoint: `http://localhost:5000/paslons/2`
+- Required Token: Yes
+
 
 
 **Contoh Request:**
@@ -210,6 +239,13 @@ image dari file, yang nantinya saat tersimpan di database adalah url dari image 
 
 - Metode: DELETE
 - Endpoint: `http://localhost:5000/paslons/2`
+- Required Token: Yes
+- Request Body: 
+    -Form Data:
+        -name
+        -visi
+        -image
+        -parties
 
 **Response:**
 

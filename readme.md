@@ -240,12 +240,15 @@ image dari file, yang nantinya saat tersimpan di database adalah url dari image 
 - Metode: DELETE
 - Endpoint: `http://localhost:5000/paslons/2`
 - Required Token: Yes
-- Request Body: 
-    -Form Data:
-        -name
-        -visi
-        -image
-        -parties
+
+**Request Body:**
+
+- **Form Data:**
+  - `name`: Nama paslon yang ingin dihapus.
+  - `visi`: Visi paslon yang ingin dihapus.
+  - `image`: URL gambar paslon yang ingin dihapus.
+  - `parties`: Informasi partai politik yang terkait dengan paslon yang ingin dihapus.
+
 
 **Response:**
 

@@ -25,6 +25,8 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 - Metode: POST
 - Endpoint: `http://localhost:5000/auth/login`
+- Required Token: No
+- Admin Only: No 
 
 **Contoh Request:**
 ```json
@@ -53,6 +55,8 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 - Metode: POST
 - Endpoint: `http://localhost:5000/auth/register`
+- Required Token: No
+- Admin Only: No 
 
 **Contoh Request:**
 ```json
@@ -61,7 +65,7 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
     "username": "username",
     "email": "email@gmail.com", // unique 
     "password": "password",
-    "isAdmin": true // default nya galse (optional)
+    "isAdmin": true // default nya false ( optional )
 }
 
 ```
@@ -87,43 +91,81 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 - Metode: GET
 - Endpoint: `http://localhost:5000/paslons`
 - Required Token: Yes
+- Admin Only: No 
+
+
+**Deskripsi:**
+Operasi ini digunakan untuk mendapatkan daftar semua paslon yang tersedia dalam sistem.
 
 **Response:**
 
 ```json
-[
-    {
+{
+    "user": {
         "id": 1,
-        "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
-        "name": "name 1",
-        "visi": "visi 1",
-        "parties": [
-            {
-                "id": 1,
-                "name": "partai 1"
-            }
-        ]
+        "isAdmin": true,
+        "iat": 1696818135,
+        "exp": 1696821735
     },
-    {
-        "id": 2,
-        "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696049999/hd68krdlnczvhwbdnpgm.png",
-        "name": "name 2",
-        "visi": "visi 2",
-        "parties": [
-            {
-                "id": 2,
-                "name": "partai 2"
-            }
-        ]
-    },
-    {
-        "id": 3,
-        "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003685/srzzg41ru6mq5wj0imk0.png",
-        "name": "name 3",
-        "visi": "visi 3",
-        "parties": []
-    }
-]
+    "data": [
+        {
+            "id": 13,
+            "name": "Naruto & Sasuke",
+            "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696771158/s5cidmuplsifcu17az9b.jpg",
+            "visi": "menjadi hokage",
+            "parties": [
+                {
+                    "id": 25,
+                    "name": "partai A"
+                },
+                {
+                    "id": 26,
+                    "name": "Partai B"
+                },
+                {
+                    "id": 21,
+                    "name": "Partai C"
+                }
+            ],
+            "voter": [
+                {
+                    "id": 3,
+                    "username": "fauzan baru"
+                },
+                {
+                    "id": 5,
+                    "username": "fauzanbaru"
+                },
+                {
+                    "id": 4,
+                    "username": "tiktok"
+                }
+            ]
+        },
+        {
+            "id": 14,
+            "name": "Luffy & Zoro",
+            "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696774955/dinzodwjcb9vebg9jnha.jpg",
+            "visi": "menjadi raja bajak laut, dan menjadi samurai terkuat",
+            "parties": [
+                {
+                    "id": 27,
+                    "name": "grind line"
+                },
+                {
+                    "id": 24,
+                    "name": "east blue"
+                }
+            ],
+            "voter": [
+                {
+                    "id": 1,
+                    "username": "admin"
+                }
+            ]
+        }
+    ]
+}
 
 ```
 
@@ -134,22 +176,38 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 - Metode: GET
 - Endpoint: `http://localhost:5000/paslons/1`
 - Required Token: Yes
+- Admin Only: No 
 
+**Deskripsi:**
+Operasi ini digunakan untuk mendapatkan detail paslon berdasarkan ID tertentu.
+
+**Parameter URL:**
+- `:id`  (integer): ID paslon yang ingin dilihat detailnya.
 
 **Response:**
 
 ```json
 {
-    "id": 1,
-    "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
-    "name": "name 1",
-    "visi": "visi 1",
-    "parties": [
-        {
-            "id": 1,
-            "name": "partai 1"
-        }
-    ]
+    "data": {
+        "id": 13,
+        "name": "Naruto & Sasuke",
+        "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696771158/s5cidmuplsifcu17az9b.jpg",
+        "visi": "menjadi hokage",
+        "parties": [
+            {
+                "id": 25,
+                "name": "partai A"
+            },
+            {
+                "id": 26,
+                "name": "Partai B"
+            },
+            {
+                "id": 21,
+                "name": "Partai C"
+            }
+        ]
+    }
 }
 ```
 
@@ -160,37 +218,48 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 - Metode: POST
 - Endpoint: `http://localhost:5000/paslons`
 - Required Token: Yes
+- Admin Only: Yes 
 
 
-**Contoh Request:**
+**Deskripsi:**
+Operasi ini digunakan untuk mendapatkan detail paslon berdasarkan ID tertentu.
 
-image dari file, yang nantinya saat tersimpan di database adalah url dari image yang disimpan di cloudinary
+**Request Body:**
 
-```json
-{
-    "name": "data baru",
-    "visi": "visi baru",
-    "parties": [2]
-}
-```
+- **Form Data:**
+  - `name`: Nama paslon yang ingin ditambah.
+  - `visi`: Visi paslon yang ingin ditambah.
+  - `image`: URL gambar paslon yang ingin ditambah.
+  - `parties`: Informasi partai politik yang terkait dengan paslon yang ingin ditambah.
+
 
 **Response:**
 
 ```json
 {
-  "message": "created success",
-  "data": {
-    "id": 4,
-    "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
-    "name": "name baru",
-    "visi": "visi baru",
-    "parties": [
-      {
+    "user": {
         "id": 1,
-        "name": "partai 1"
-      }
-    ]
-  }
+        "isAdmin": true,
+        "iat": 1696818135,
+        "exp": 1696821735
+    },
+    "data": {
+        "paslon": {
+            "name": "nama a",
+            "visi": "visi a",
+            "image": null,
+            "id": 18
+        },
+        "parties": [
+            {
+                "name": "partai 3"
+            },
+            {
+                "name": "partai 4"
+            }
+        ],
+        "message": "Paslon created"
+    }
 }
 ```
 
@@ -202,34 +271,73 @@ image dari file, yang nantinya saat tersimpan di database adalah url dari image 
 - Metode: PATCH
 - Endpoint: `http://localhost:5000/paslons/2`
 - Required Token: Yes
+- Admin Only: Yes 
 
 
+**Deskripsi:**
+Operasi ini digunakan untuk menghapus data paslon berdasarkan ID tertentu.
 
-**Contoh Request:**
+**Request Body:**
 
-```json
-{
-    "name": "updated name baru"
-}
-```
+- **Form Data:**
+  - `name`: Nama paslon yang ingin diubah.
+  - `visi`: Visi paslon yang ingin diubah.
+  - `image`: URL gambar paslon yang ingin diubah.
+  - `parties`: Informasi partai politik yang terkait dengan paslon yang ingin diubah.
+
 
 **Response:**
 
 ```json
 {
-  "message": "updated success",
-  "data": {
-      "id": 2,
-      "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
-      "name": "updated name baru",
-      "visi": "visi 2",
-      "parties": [
-          {
-              "id": 2,
-              "name": "partai 2"
-          }
-      ]
-  }
+    "user": {
+        "id": 1,
+        "isAdmin": true,
+        "iat": 1696818135,
+        "exp": 1696821735
+    },
+    "data": {
+        "paslon": {
+            "id": 18,
+            "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696818702/qg8bnmxpyvww2fslp64u.png",
+            "parties": [
+                {
+                    "id": 34,
+                    "name": "partai 3"
+                },
+                {
+                    "id": 35,
+                    "name": "partai 4"
+                }
+            ]
+        },
+        "parties": [
+            {
+                "id": 34,
+                "name": "partai 3",
+                "paslon": {
+                    "id": 18,
+                    "name": "nama a",
+                    "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696818702/qg8bnmxpyvww2fslp64u.png",
+                    "visi": "visi a"
+                }
+            },
+            {
+                "id": 35,
+                "name": "partai 4",
+                "paslon": {
+                    "id": 18,
+                    "name": "nama a",
+                    "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696818702/qg8bnmxpyvww2fslp64u.png",
+                    "visi": "visi a"
+                }
+            },
+            {
+                "name": "partai 5"
+            }
+        ], // sedang menambah partai 5
+        "message": "Paslon updated"
+    }
 }
 ```
 
@@ -240,42 +348,83 @@ image dari file, yang nantinya saat tersimpan di database adalah url dari image 
 - Metode: DELETE
 - Endpoint: `http://localhost:5000/paslons/2`
 - Required Token: Yes
+- Admin Only: Yes 
 
-**Request Body:**
 
-- **Form Data:**
-  - `name`: Nama paslon yang ingin dihapus.
-  - `visi`: Visi paslon yang ingin dihapus.
-  - `image`: URL gambar paslon yang ingin dihapus.
-  - `parties`: Informasi partai politik yang terkait dengan paslon yang ingin dihapus.
+**Deskripsi:**
+Operasi ini digunakan untuk menghapus data paslon berdasarkan ID tertentu.
+
+**Parameter URL:**
+- `:id` (integer): ID paslon yang ingin dihapus.
 
 
 **Response:**
 
 ```json
 {
-  "message": "deleted success",
-  "data": {
-      "image": "http://res.cloudinary.com/da9j9y9oo/image/upload/v1696003467/bpg0nzltjefik82qxdgg.png",
-      "name": "updated name baru",
-      "visi": "visi 2",
-      "parties": [
-          {
-              "id": 2,
-              "name": "partai 2"
-          }
-      ]
-  }
+    "user": {
+        "id": 1,
+        "isAdmin": true,
+        "iat": 1696818135,
+        "exp": 1696821735
+    },
+    "data": {
+        "raw": [],
+        "affected": 1
+    }
 }
 ```
 
-### Voters CRUD
-Comming soon
-...
+### Voters
+#### Memilih Paslon
 
-### Parties CRUD
-Comming soon
-...
+**Request:**
+
+- Metode: PATCH
+- Endpoint: `http://localhost:5000/users/vote/:id_user/:id_paslon`
+- Required Token: Yes
+- Admin Only: No 
+
+
+**Deskripsi:**
+Operasi ini memungkinkan pengguna untuk memberikan suara pada pasangan calon tertentu.
+
+**Response:**
+
+```json
+{
+    "user": {
+        "id": 1,
+        "isAdmin": true,
+        "iat": 1696822766,
+        "exp": 1696826366
+    },
+    "data": {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@gmail.com",
+        "password": "$2b$10$.AwvIRofzdfChvetnlR.6Otvo5I/h5jRBhDjUcRxDBo44tT0voaRS",
+        "isAdmin": true,
+        "paslon": {
+            "id": 19,
+            "name": "nama a",
+            "image": null,
+            "visi": "visi a",
+            "parties": [
+                {
+                    "id": 37,
+                    "name": "partai 3"
+                },
+                {
+                    "id": 38,
+                    "name": "partai 4"
+                }
+            ],
+            "voter": []
+        }
+    }
+}
+```
 
 ## Cara Menjalankan Proyek
 

@@ -19,7 +19,8 @@ export class User {
   @Column({ default: false })
   isAdmin: boolean;
 
-  @ManyToOne(() => Paslon, (paslon) => paslon.voter)
-  paslon: Paslon;
+  @ManyToOne(() => Paslon, (paslon) => paslon.voter, { nullable: true })
+  paslon: Paslon | null;
 
 }
+

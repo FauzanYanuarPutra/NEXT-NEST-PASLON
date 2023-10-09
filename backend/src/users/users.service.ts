@@ -1,4 +1,4 @@
-import { Injectable, Body, ConflictException, BadRequestException } from '@nestjs/common';
+import { Injectable, Body, ConflictException, BadRequestException, forwardRef, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './entity/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,7 +11,8 @@ import { JwtService } from '@nestjs/jwt';
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
-    private readonly paslonsService: PaslonsService,
+    // private readonly paslonsService: PaslonsService,
+    @Inject(forwardRef(() => PaslonsService)) private readonly paslonsService: PaslonsService,
     private readonly jwtService: JwtService
   ) { }
 
@@ -63,15 +64,30 @@ export class UsersService {
     }
   }
 
+  async updatePaslon(user: number) {
+    const NID = Number(user);
+    const paslon = await this.usersRepository.findOne({
+      where: {
+        id: NID
+      }
+    })
+
+    if (!paslon) {
+      throw new BadRequestException('Paslon not found');
+    }
+
+    paslon.paslon = null
+
+    return this.usersRepository.save(paslon);
+  }
+
   async vote(idUser: string, idPaslon: string) {
     const UID = Number(idUser);
-    console.log(idPaslon)
     if(isNaN(UID)) {
       throw new BadRequestException('ID must be a number');
     }
     
     const paslon = await this.paslonsService.findById(idPaslon);
-    console.log(paslon)
     const user = await this.usersRepository.findOne({
       where: {
         id: UID

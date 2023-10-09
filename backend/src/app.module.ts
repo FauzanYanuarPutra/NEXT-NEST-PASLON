@@ -9,10 +9,9 @@ import { PaslonsModule } from './paslons/paslons.module';
 import { PartiesModule } from './parties/parties.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(TypeOrmConfig), UsersModule, AuthModule, PaslonsModule, PartiesModule, CloudinaryModule],
+  imports: [TypeOrmModule.forRoot(TypeOrmConfig), UsersModule, AuthModule, PaslonsModule, PartiesModule],
   controllers: [AppController],
   providers: [
     AppService,

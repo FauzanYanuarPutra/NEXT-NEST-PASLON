@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Paslon } from './entity/paslon.entity';
 import { Repository } from 'typeorm';
@@ -6,13 +6,16 @@ import CreatePaslonDto from './dtos/create-paslon.dto';
 import { PartiesService } from 'src/parties/parties.service';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import UpdatePaslonDto from './dtos/update-paslon.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class PaslonsService {
   constructor(
     @InjectRepository(Paslon) private readonly paslonsRepository: Repository<Paslon>,
     private readonly partiesService: PartiesService,
-    private cloudinary: CloudinaryService
+    @Inject(forwardRef(() => UsersService)) private readonly usersService: UsersService,
+    // private readonly usersService: UsersService,
+    private cloudinary: CloudinaryService,
   ) { }
   
   async find() {
@@ -33,7 +36,6 @@ export class PaslonsService {
 
   async findById(id: string) {
     const NumID = Number(id);
-    console.log(NumID)
     if(isNaN(NumID)) {
       throw new BadRequestException('ID must be a number eror disini');
     }
@@ -41,7 +43,12 @@ export class PaslonsService {
       where: {
         id: NumID
       },
-      relations: ['parties'],
+      relations: ['parties', 'voter'],
+      select: {
+        voter: {
+          id: true,
+        }
+      }
     });
   }
 
@@ -76,9 +83,10 @@ export class PaslonsService {
     const data = {
       paslon: result,
       parties: createdParties,
+      message: 'Paslon created',
     };
   
-    return {data, message: 'Paslon created'}; 
+    return data; 
   }
 
   async update(id: string, body: UpdatePaslonDto, image: Express.Multer.File) {
@@ -112,7 +120,7 @@ export class PaslonsService {
   
     const createdParties = [];
 
-    if (parties) {
+    if (parties && parties.length > 0 && paslon.parties.length > 0) {
   
       for (const party of parties) {
         const data = {
@@ -148,9 +156,10 @@ export class PaslonsService {
     const data = {
       paslon: updatedPaslon,
       parties: createdParties,
+      message: 'Paslon updated',
     };
   
-    return { data, message: 'Paslon updated' };
+    return data;
   }
 
   async uploadImageToCloudinary(file: Express.Multer.File) {
@@ -185,8 +194,21 @@ export class PaslonsService {
         await this.partiesService.delete(String(party.id));
       }
     }
+
+
+    if (paslon.voter.length > 0) {
+      for (const user of paslon.voter) {
+        await this.usersService.updatePaslon(user.id);
+      }
+    }
+
+    const deleteResult = await this.paslonsRepository.delete(id);
+
+    if (deleteResult.affected === 0) {
+      throw new NotFoundException(`Paslon with ID ${id} not found`);
+    }
     
-    return await this.paslonsRepository.delete(id);
+    return deleteResult;
   }
 
 

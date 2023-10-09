@@ -15,6 +15,15 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 - [Tailwind CSS](https://tailwindcss.com/) (Framework CSS)
 - PostgreSQL (Database)
 
+## Teknologi dan Alat yang Digunakan
+
+- [Next.js](https://nextjs.org/): Framework React untuk pengembangan aplikasi web.
+- [Tailwind CSS](https://tailwindcss.com/): Kerangka kerja CSS yang digunakan untuk desain tampilan.
+- [PostgreSQL](https://www.postgresql.org/): Sistem basis data relasional open source.
+- [Cloudinary](https://cloudinary.com/): Layanan penyimpanan dan pengelolaan gambar dan media.
+- [TypeORM](https://typeorm.io/): ORM (Object-Relational Mapping) untuk TypeScript dan Node.js.
+- [TypeScript](https://www.typescriptlang.org/): Bahasa pemrograman yang ketat berbasis JavaScript.
+
 ## API Endpoints
 
 ### LOGIN & REGISTER

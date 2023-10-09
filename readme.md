@@ -17,6 +17,45 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 ## API Endpoints
 
+### LOGIN & REGISTER
+
+#### LOGIN
+
+**Request:**
+
+- Metode: POST
+- Endpoint: `http://localhost:5000/auth/login`
+
+**Response:**
+
+```json
+{
+    "data": {
+        "access_token": "token random yang akan di generate"
+    }
+}
+
+```
+
+#### REGISTER
+
+**Request:**
+
+- Metode: POST
+- Endpoint: `http://localhost:5000/auth/register`
+
+**Response:**
+
+```json
+{
+    "data": {
+        "access_token": "token random yang akan di generate"
+    }
+}
+
+```
+
+
 ### Paslon CRUD
 
 #### Mendapatkan Semua Paslon
@@ -24,7 +63,7 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 **Request:**
 
 - Metode: GET
-- Endpoint: `http://localhost:7000/paslons`
+- Endpoint: `http://localhost:5000/paslons`
 
 **Response:**
 
@@ -70,7 +109,7 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 **Request:**
 
 - Metode: GET
-- Endpoint: `http://localhost:7000/paslons/1`
+- Endpoint: `http://localhost:5000/paslons/1`
 
 **Response:**
 
@@ -94,7 +133,7 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 **Request:**
 
 - Metode: POST
-- Endpoint: `http://localhost:7000/paslons`
+- Endpoint: `http://localhost:5000/paslons`
 
 **Contoh Request:**
 
@@ -134,7 +173,7 @@ image dari file, yang nantinya saat tersimpan di database adalah url dari image 
 **Request:**
 
 - Metode: PATCH
-- Endpoint: `http://localhost:7000/paslons/2`
+- Endpoint: `http://localhost:5000/paslons/2`
 
 
 **Contoh Request:**
@@ -170,7 +209,7 @@ image dari file, yang nantinya saat tersimpan di database adalah url dari image 
 **Request:**
 
 - Metode: DELETE
-- Endpoint: `http://localhost:7000/paslons/2`
+- Endpoint: `http://localhost:5000/paslons/2`
 
 **Response:**
 

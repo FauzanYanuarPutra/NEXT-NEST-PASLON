@@ -16,7 +16,7 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
     <img src="https://cdn.freebiesupply.com/logos/large/2x/postgresql-logo-png-transparent.png" width="80">
 </div>
 
-### Teknologi yang Digunakan
+### Tek❌ Nologi yang Digunakan
 
 - [Nest.js](https://nestjs.com/) (Framework backend)
 - [TypeORM](https://typeorm.io/) (ORM untuk database)
@@ -36,8 +36,8 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 - Metode: POST
 - Endpoint: `http://localhost:5000/auth/login`
-- Required Token: No
-- Admin Only: No 
+- Required Token: ❌ No
+- Admin Only: ❌ No 
 
 **Contoh Request:**
 ```json
@@ -66,8 +66,8 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 - Metode: POST
 - Endpoint: `http://localhost:5000/auth/register`
-- Required Token: No
-- Admin Only: No 
+- Required Token: ❌ No
+- Admin Only: ❌ No 
 
 **Contoh Request:**
 ```json
@@ -101,8 +101,8 @@ Tulis deskripsi lebih detail tentang proyek Anda di sini.
 
 - Metode: GET
 - Endpoint: `http://localhost:5000/paslons`
-- Required Token: Yes
-- Admin Only: No 
+- Required Token: ✅ Yes
+- Admin Only: ❌ No 
 
 
 **Deskripsi:**
@@ -186,8 +186,8 @@ Operasi ini digunakan untuk mendapatkan daftar semua paslon yang tersedia dalam 
 
 - Metode: GET
 - Endpoint: `http://localhost:5000/paslons/1`
-- Required Token: Yes
-- Admin Only: No 
+- Required Token: ✅ Yes
+- Admin Only: ❌ No 
 
 **Deskripsi:**
 Operasi ini digunakan untuk mendapatkan detail paslon berdasarkan ID tertentu.
@@ -228,8 +228,8 @@ Operasi ini digunakan untuk mendapatkan detail paslon berdasarkan ID tertentu.
 
 - Metode: POST
 - Endpoint: `http://localhost:5000/paslons`
-- Required Token: Yes
-- Admin Only: Yes 
+- Required Token: ✅ Yes
+- Admin Only: ✅ Yes 
 
 
 **Deskripsi:**
@@ -281,8 +281,8 @@ Operasi ini digunakan untuk mendapatkan detail paslon berdasarkan ID tertentu.
 
 - Metode: PATCH
 - Endpoint: `http://localhost:5000/paslons/2`
-- Required Token: Yes
-- Admin Only: Yes 
+- Required Token: ✅ Yes
+- Admin Only: ✅ Yes 
 
 
 **Deskripsi:**
@@ -358,8 +358,8 @@ Operasi ini digunakan untuk menghapus data paslon berdasarkan ID tertentu.
 
 - Metode: DELETE
 - Endpoint: `http://localhost:5000/paslons/2`
-- Required Token: Yes
-- Admin Only: Yes 
+- Required Token: ✅ Yes
+- Admin Only: ✅ Yes 
 
 
 **Deskripsi:**
@@ -393,8 +393,8 @@ Operasi ini digunakan untuk menghapus data paslon berdasarkan ID tertentu.
 
 - Metode: PATCH
 - Endpoint: `http://localhost:5000/users/vote/:id_user/:id_paslon`
-- Required Token: Yes
-- Admin Only: No 
+- Required Token: ✅ Yes
+- Admin Only: ❌ No 
 
 
 **Deskripsi:**

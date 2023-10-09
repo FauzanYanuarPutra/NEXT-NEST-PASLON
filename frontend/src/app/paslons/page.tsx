@@ -6,6 +6,7 @@ import { PaslonIndex } from "./PaslonIndex";
 import { ErrorPopup } from "../components/common/errors/ErrorPopup";
 import { getToken } from "../config/getToken";
 import { LoaderQuarter } from 'tabler-icons-react';
+import { useRouter } from "next/navigation";
 function PagePaslons() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -97,6 +98,12 @@ function PagePaslons() {
       });
   }
 
+  const router = useRouter();
+
+  const LogOut = () => {
+    localStorage.removeItem('token');
+    router.push('/auth/login');
+  }
 
   return (
     <div>
@@ -151,11 +158,12 @@ function PagePaslons() {
               </div>
             </div>
             <div>
-              {user && user.isAdmin && (
                 <div className="flex justify-end my-2">
-                  <Link href="/paslons/create" className="bg-green-500 px-6 py-2 font-medium rounded-lg text-white">Create</Link>
+                  {user && user.isAdmin && (
+                      <Link href="/paslons/create" className="bg-green-500 px-6 py-2 font-medium rounded-lg text-white">Create</Link>
+                  )}
+                  <div onClick={LogOut} className="cursor-pointer bg-red-500 px-6 py-2 font-medium rounded-lg text-white">Log Out</div>
                 </div>
-              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 rounded-lg">
                 {data.map((paslon: any, index: number) => <PaslonIndex index={index + 1} key={paslon.id} paslon={paslon} user={user} DeletePaslon={DeletePaslon} /> )}
               </div>

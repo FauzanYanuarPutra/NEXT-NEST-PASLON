@@ -37,7 +37,7 @@ export const PaslonIndex = (props: any) => {
                 onClick={() => router.push(`/paslons/${paslon.id}/edit`)}
                 className="bg-blue-500 rounded-lg text-white py-2 font-medium hover:bg-blue-600 transition duration-200"
               >
-                Update
+                Edit
               </button>
               <button
                 onClick={() => DeletePaslon(paslon.id)}

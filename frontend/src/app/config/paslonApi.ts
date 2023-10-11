@@ -1,7 +1,6 @@
-
 import axios from 'axios';
 
-const BASE_API_URL = 'http://localhost:5000'; 
+const BASE_API_URL = 'http://localhost:5000';
 
 const api = axios.create({
   baseURL: BASE_API_URL,
@@ -15,24 +14,41 @@ export const setAuthHeader = (token: any) => {
   }
 };
 
-export const get = (url: any) => {
-  return api.get(url);
+export const get = async (url: string) => {
+  try {
+    const response = await api.get(url);
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
 };
 
-export const getOne = (url: any) => {
-  return api.get(url);
+export const post = async (url: string, data: any) => {
+  try {
+    const response = await api.post(url, data);
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
 };
 
-export const post = (url: any, data: any) => {
-  return api.post(url, data);
+export const patch = async (url: string, data: any) => {
+  try {
+    const response = await api.patch(url, data);
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
 };
 
-export const patch = (url: any, data: any) => {
-  return api.patch(url, data);
+export const destroy = async (url: string, data: any) => {
+  try {
+    const response = await api.delete(url, data);
+    return response.data;
+  } catch (error: any) {
+    throw error;
+  }
 };
 
-export const destroy = (url: any, data: any) => {
-  return api.delete(url, data);
-};
+export default api
 
-export default api;

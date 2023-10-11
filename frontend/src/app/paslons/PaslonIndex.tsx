@@ -1,5 +1,4 @@
 import { useState } from "react";
-import api from "@/app/config/paslonApi";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { getToken } from "../config/getToken";

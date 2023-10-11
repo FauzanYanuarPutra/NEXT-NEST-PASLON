@@ -101,7 +101,7 @@ export default function CreatePaslon() {
               name="image"
               accept="image/*"
               onChange={handleChange}
-              required={true}
+              // required={true}
             />
             <LabelInput
               htmlFor="visi"

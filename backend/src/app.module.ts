@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -19,6 +19,11 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
       provide: APP_INTERCEPTOR,
       useClass: AuthInterceptor,
     },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    }
+    
   ],
 })
 export class AppModule {}

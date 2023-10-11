@@ -20,7 +20,7 @@ export class UsersService {
     return await this.usersRepository.findOne({
       where: {
         email
-      }
+      },
     });
   }
 
@@ -33,7 +33,7 @@ export class UsersService {
       where: {
         id: NumID
       },
-      relations: ['paslon']
+      relations: ['paslon'],
     });
   }
 

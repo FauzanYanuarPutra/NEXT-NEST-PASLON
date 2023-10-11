@@ -1,122 +1,74 @@
 "use client"
-import { useEffect, useState } from "react";
-import api from "../config/paslonApi";
-import Link from "next/link";
-import { PaslonIndex } from "./PaslonIndex";
-import { ErrorPopup } from "../components/common/errors/ErrorPopup";
-import { getToken } from "../config/getToken";
-import { LoaderQuarter } from 'tabler-icons-react';
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { PaslonIndex } from './PaslonIndex';
+import { ErrorPopup } from '../components/common/errors/ErrorPopup';
+import Loader from '../components/common/loadings/loader';
+import { useRouter } from 'next/navigation';
+import api from '../config/paslonApi';
+import { getToken } from '../config/getToken';
+
 function PagePaslons() {
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-  const [vote, setVote] = useState({
-    id: 0,
-    vote: 0,
-  });
-  const [user, setUser] = useState({
-    id: 0,
-    isAdmin: false,
-  });
-  const [error, setError] = useState({
-    message: "",
-    error: "",
-    statusCode: 0,
-  }); 
-
-  const GetData = () => {
-    getToken()
-    api.get('/paslons')
-      .then((res) => {
-        GetUser(res.data.user);
-        setData(res.data.data);
-      })
-      .catch((err) => {
-        setData([]);
-        if (err.response.data.statusCode === 401) {
-        setError(err.response.data);
-        } else {
-        setError(err.message);
-        }
-      }).finally(() => {
-        setLoading(false);
-        
-      });
-    
-      
-  }
-  useEffect(() => {
-    /* eslint-disable react-hooks/exhaustive-deps */
-    GetData();
-  }, [ ]);
-
-  const GetUser = (user: any) => {
-    setUser(user)
-    getToken()
-    api.get(`/users/${user.id}`)
-      .then((res) => {
-      
-      setVote({
-        id: user.id,
-        vote: res.data.data.paslon ? res.data.data.paslon.id : 0,
-      });
-    })
-      .catch((err) => {
-      setData([]);
-      if (err.response.data.statusCode === 401) {
-      setError(err.response.data);
-      } else {
-      setError(err.message);
-      }
-    }).finally(() => {
-      setLoading(false);
-    });
-  }
-
-    
-  const DeletePaslon = (id: string) => {
-    getToken()
-    api
-      .delete(`/paslons/${id}`)
-      .then((res) => {
-        GetData();
-      })
-      .catch((err) => {
-        GetData();
-      });
-  };
-
-  const VotePason = () => {
-    getToken()
-    api
-      .patch(`/users/vote/${vote.id}/${vote.vote}`)
-      .then((res) => {
-        GetData();
-      })
-      .catch((err) => {
-        GetData();
-      });
-  }
-
   const router = useRouter();
 
-  const LogOut = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const [vote, setVote] = useState({ id: 0, vote: 0 });
+  const [user, setUser] = useState({ id: 0, isAdmin: false });
+  const [error, setError] = useState({ message: '', error: '', statusCode: 0 });
+
+  const fetchData = async () => {
+    try {
+      getToken()
+      const res = await api.get('/paslons');
+      const userData = await api.get(`/users/${res.data.user.id}`);
+      setLoading(false);
+      setData(res.data.data);
+      console.log(res.data.data);
+      setUser(userData.data.data);
+      setVote({
+        id: res.data.user.id,
+        vote: userData.data.data.paslon ? userData.data.data.paslon.id : 0,
+      });
+    } catch (err: any) {
+      // setLoading(false);
+      if (err.response.data.statusCode === 401) {
+        router.push('/auth/login');
+      }
+    }
+  };
+
+  useEffect(() => {
+     /* eslint-disable react-hooks/exhaustive-deps */
+    fetchData();
+  }, []);
+
+  const handleDeletePaslon = async (id :any) => {
+    try {
+      await api.delete(`/paslons/${id}`);
+      fetchData();
+    } catch (err) {
+      fetchData();
+    }
+  };
+  const handleVotePaslon = async () => {
+    try {
+      await api.patch(`/users/vote/${vote.id}/${vote.vote}`);
+      fetchData();
+    } catch (err) {
+      fetchData();
+    }
+  };
+
+  const handleLogout = () => {
     localStorage.removeItem('token');
     router.push('/auth/login');
-  }
+  };
 
   return (
     <div>
       {isLoading ? (
-        <div className="fixed top-0 botom-0 left-0 right-0 w-full h-full flex justify-center items-center">
-          <div className="animate-spin">
-            <LoaderQuarter
-              size={46}
-              strokeWidth={2.5}
-              color={'#4060bf'}
-            />
-          </div>
-        </div>
+        <Loader />
       ) : (
           <div className="flex flex-col max-w-[1000px] w-[90%] mx-auto my-10 mb-20">
             <div className="flex flex-col md:flex-row  gap-3  mb-5">
@@ -152,7 +104,7 @@ function PagePaslons() {
                     </div>
                   ))}
                 </div>
-                <div onClick={() => VotePason()} className="mt-5 bg-green-500 p-3 text-center rounded-md text-white cursor-pointer" >
+                <div onClick={() => handleVotePaslon()} className="mt-5 bg-green-500 p-3 text-center rounded-md text-white cursor-pointer" >
                     Pilih
                 </div>
               </div>
@@ -162,10 +114,10 @@ function PagePaslons() {
                   {user && user.isAdmin && (
                       <Link href="/paslons/create" className="bg-green-500 px-6 py-2 font-medium rounded-lg text-white">Create</Link>
                   )}
-                  <div onClick={LogOut} className="cursor-pointer bg-red-500 px-6 py-2 font-medium rounded-lg text-white">Log Out</div>
+                  <div onClick={handleLogout} className="cursor-pointer bg-red-500 px-6 py-2 font-medium rounded-lg text-white">Log Out</div>
                 </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 rounded-lg">
-                {data.map((paslon: any, index: number) => <PaslonIndex index={index + 1} key={paslon.id} paslon={paslon} user={user} DeletePaslon={DeletePaslon} /> )}
+                {data.map((paslon: any, index: number) => <PaslonIndex index={index + 1} key={paslon.id} paslon={paslon} user={user} DeletePaslon={handleDeletePaslon} /> )}
               </div>
             </div>
             {error && error.statusCode !== 0 && <ErrorPopup />}

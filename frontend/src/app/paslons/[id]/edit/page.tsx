@@ -12,12 +12,17 @@ interface FormData {
   parties: string[];
 }
 
-const DetailProject = ({ params }: { params: { id: number } }) => {
+const EditPaslon = ({ params }: { params: { id: number } }) => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     image: null,
     visi: "",
     parties: [], 
+  });
+  const [error, setError] = useState({
+    message: "",
+    error: "",
+    statusCode: 0,
   });
   const router = useRouter();
 
@@ -75,7 +80,8 @@ const DetailProject = ({ params }: { params: { id: number } }) => {
         console.log(res);
         router.push("/paslons");
         })
-        .catch((err) => {
+      .catch((err) => {
+          setError(err.response.data);
           console.log(err);
         }).finally(() => {
           console.log("done");
@@ -131,32 +137,40 @@ const DetailProject = ({ params }: { params: { id: number } }) => {
             />
             <div className="grid lg:grid-cols-2 grid-col-1 gap-5">
               {formData.parties.map((party, index) => (
-                <div key={index} className="">
-                  <LabelInput
-                    htmlFor={`partai ke${index + 1}`}
-                    type="text"
-                    name={`partai ke${index + 1}`}
-                    value={party}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      const updatedParties = [...formData.parties];
-                      updatedParties[index] = e.target.value;
-                      setFormData({
-                        ...formData,
-                        parties: updatedParties,
-                      });
-                    }}
-                    placeholder="Masukan partai"
-                  />
-                  <button
-                    type="button"
-                    className="text-red-600 text-sm font-medium"
-                    onClick={() => removeParty(index)}
-                  >
-                    Hapus Partai
-                  </button>
+                <div key={index} className="flex gap-2 flex-col">
+                  <label htmlFor={`partai ke${index + 1}`}>partai ke {index + 1}</label>
+                  <div  className="relative">
+                    <LabelInput
+                      type="text"
+                      name={`partai ke${index + 1}`}
+                      value={party}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        const updatedParties = [...formData.parties];
+                        updatedParties[index] = e.target.value;
+                        setFormData({
+                          ...formData,
+                          parties: updatedParties,
+                        });
+                      }}
+                      placeholder="Masukan partai"
+                    />
+                    <div className="absolute right-0 bottom-0 top-0">
+                      <button type="button" className="bg-red-500 h-full flex text-center justify-center items-center px-5 rounded-r-lg text-3xl text-white"  onClick={() => removeParty(index)}>
+                        -
+                      </button>
+                    </div>
+                    {/* <button
+                      type="button"
+                      className="text-red-600 text-sm font-medium"
+                      onClick={() => removeParty(index)}
+                    >
+                      Hapus Partai
+                    </button> */}
+                  </div>
                 </div>
               ))}
             </div>
+            {error && error.statusCode === 400 && <p style={{ color: "red" }}>{error.message}</p>} 
             <div className="relative">
               <LabelInput
                 type="text"
@@ -174,10 +188,13 @@ const DetailProject = ({ params }: { params: { id: number } }) => {
 
             <button type="submit">Submit</button>
           </form>
+          {error && error.statusCode === 401 && <p style={{ color: "red" }}>{error.message}</p>} 
         </div>
       </div>
     </>
   );
 }
 
-export default DetailProject
+export default EditPaslon
+
+

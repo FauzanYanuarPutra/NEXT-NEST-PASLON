@@ -5,6 +5,7 @@ import CreatePaslonDto from './dtos/create-paslon.dto';
 import { PaslonsService } from './paslons.service';
 import UpdatePaslonDto from './dtos/update-paslon.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+// import { PermissionGuard } from 'src/guards/permission.guard';
 
 @Controller('paslons')
 export class PaslonsController {
@@ -21,7 +22,8 @@ export class PaslonsController {
   }
 
   @Post()
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)  // PermissionGuard
+  // @SetMetadata('permission', ['create:paslon']) // ini adalah percobaan permission
   @UseInterceptors(FileInterceptor('image'))
   create(@Body() body: CreatePaslonDto,  @UploadedFile() image: Express.Multer.File) {
     return this.paslonsService.create(body, image);

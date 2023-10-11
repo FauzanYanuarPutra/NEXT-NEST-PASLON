@@ -55,18 +55,19 @@ export class PartiesService {
     return result
   }
 
+  
   async update(paslonId: string ,id: string, data: Partial<Party>) {
     const party = await this.findById(id); 
 
     if (data.name && data.name !== party.name) {
       const existingParty = await this.findByName(data.name);
       if (existingParty) {
-        throw new BadRequestException('');
+        throw new BadRequestException(`${party.name} is already exist.`);
       }
     }
   
     if (Number(paslonId) !== party.paslon.id) {
-      throw new BadRequestException('Party ID must be unique.');
+      throw new BadRequestException(`${party.name} is already exist.`);
     }
 
     await this.partiesRepository.update(id, data);
